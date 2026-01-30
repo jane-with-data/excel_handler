@@ -29,9 +29,6 @@ project_root/
 │   ├── temp/                     # Temporary result files
 │   └── logs/                     # Application logs
 │
-├── docs/                         # Documentation
-│   ├── project_overview.md
-│
 ├── pyproject.toml                # Python project metadata
 ├── .env.example                  # Environment variables template
 ├── README.md                     # Project readme
