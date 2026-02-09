@@ -43,25 +43,11 @@ class AppConfig(BaseSettings):
             ZALO_URL=https://chat.zalo.me
     """
     
-    # Paths
-    project_root: Path = Path(__file__).parent.parent.parent
-    data_dir: Path = project_root / "data"
-    input_dir: Path = data_dir / "input"
-    output_dir: Path = data_dir / "output"
-    logs_dir: Path = data_dir / "logs"
-    temp_dir: Path = data_dir / "temp"
-    
     # Retry settings
     max_retries: int = 3
     retry_delay_seconds: float = 2.0
     network_check_timeout_seconds: int = 5
     network_check_max_wait_seconds: int = 300
-    
-    # Excel I/O
-    input_excel_file: str = "phone_check.xlsx"
-    output_excel_file: str = "phone_check_result.xlsx"
-    backup_progress_file: str = "backup_progress.json"
-    auto_save_interval: int = 10
     
     # Logging
     log_level: str = "INFO"

@@ -41,7 +41,7 @@ class Logger:
         file_handler = TimedRotatingFileHandler(
             filename=log_file,
             when=LOG.get("WHEN"),                    # Xoay vòng theo ngày
-            interval=LOG.get("INTERVAL")             # Mỗi 1 ngày
+            interval=LOG.get("INTERVAL"),          # Mỗi 1 ngày
             backupCount=LOG.get("BACKUP_COUNT"),     # Giữ lại 30 ngày gần nhất
             encoding=DEFAULT_ENCODING
         )
