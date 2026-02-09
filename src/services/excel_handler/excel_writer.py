@@ -2,10 +2,9 @@
 Excel writer module for exporting data to Excel files.
 
 This module provides utilities to write DataFrames to Excel files
-with formatting support.
+with formatting support to specific output paths.
 """
 
-import logging
 from pathlib import Path
 from typing import Optional, List
 
@@ -18,29 +17,16 @@ from shared.exceptions import (
     ExcelFileNotFoundError,
     ConfigError,
 )
-# from shared.configs import get_config
 from shared.constants import PATH
 from services.logger.logger import get_logger
 from services.excel_handler.set_sheet_formatter import SetSheetFormatter
-logger = logging.getLogger(__name__)
-
-__all__ = ["ExcelWriter"]
-
+from services.logger.logger import get_logger
+logger = get_logger()
 
 class ExcelWriter:
     """
     Write DataFrames to Excel files with formatting.
     
-    This class handles creating Excel workbooks, adding sheets,
-    writing data, and applying formatting.
-    
-    Attributes:
-        workbook (Workbook): The openpyxl Workbook object
-        formatter: Sheet formatter (optional)
-    
-    Example:
-        >>> writer = ExcelWriter()
-        >>> writer.write_data(df, "Sheet1", "output.xlsx")
     """
     
     def __init__(self) -> None:
@@ -157,8 +143,9 @@ class ExcelWriter:
 
     def export_pipeline(
         self,
-        file_name,
+        file_name: str,
         dfs: List[pd.DataFrame],
+        file_path: Optional[str] = None,
         sheet_name:  Optional[list[str]] = None
     ) -> None:
         """
@@ -173,7 +160,11 @@ class ExcelWriter:
         """
         if not file_name:
             raise ConfigError("file_name must be provided for export")
-        file_path = PATH["OUTPUT_DIR"] / file_name
+        
+        if file_path:
+            _file_path = Path(file_path) / file_name
+        else:
+            _file_path = PATH["OUTPUT_DIR"] / file_name
         
         logger.info(f"Starting write pipeline for {file_path}")
         
@@ -186,9 +177,9 @@ class ExcelWriter:
             self.format_sheet(ws, df)
             
         # Save
-        self.save(file_path)
+        self.save(_file_path)
         
-        logger.info(f"Write pipeline complete: {file_path}")
+        logger.info(f"Write pipeline complete: {_file_path}")
         
 if __name__ == "__main__":
     # Initialize list to hold dataframes
@@ -215,7 +206,8 @@ if __name__ == "__main__":
 
     ew = ExcelWriter()
     ew.export_pipeline(
-        file_name="demo_output.xlsx",
+        file_name="demo_output6.xlsx",
         dfs=df,
-        sheet_name=["People", "Products"]
+        sheet_name=["People", "Products"],
+        file_path = "C:/Users/nganw/OneDrive/Desktop"
     )

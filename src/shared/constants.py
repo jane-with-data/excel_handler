@@ -26,8 +26,8 @@ PATH = {
 }
 # LOGGING =============================================================================
 LOG: Final[Dict[str, Any]] = {
-    "SET_LEVEL_FILE": "DEBUG",
-    "SET_LEVEL_CONSOLE": "DEBUG",
+    "SET_LEVEL_FILE": "INFO",
+    "SET_LEVEL_CONSOLE": "INFO",
     "NAME": "app.log",
     "LEVEL": "INFO",
     "WHEN": "midnight",
